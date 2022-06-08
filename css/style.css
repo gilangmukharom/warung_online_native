@@ -107,3 +107,16 @@ header ul li a{
 footer{
     padding: 25px 0;
 }
+
+.table{
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table tr{
+    height: 30px;
+}
+
+.table tr td{
+    padding: 5px 10px;
+}

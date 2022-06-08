@@ -21,26 +21,26 @@
         </form>
         <?php
 
-            if(isset($_POST['submit'])){
-                session_start();
-                include('db.php');
-                
-                $user = $_POST['username']; //deklarasi variabel user
-                $pass = $_POST['password']; //deklarasi variabel pass
+        if (isset($_POST['submit'])) {
+            session_start();
+            include('db.php');
 
-                $cek = mysqli_query($conn, "SELECT * FROM tb_admin WHERE username = '$user' AND password = '".MD5($pass)."'");
-                if(mysqli_num_rows($cek) > 0){
-                    //membuat sesi
-                    $d = mysqli_fetch_object($cek);
-                    $_SESSION['status_login'] = true;
-                    $_SESSION['a_global'] = $d;
-                    $_SESSION['id'] = $d->admin_id;
-                    echo "<script>window.location='dashboard.php';</script>"; //alihkan ke halaman dashboard.php
-                }
-                else {
-                    echo "<script>alert('Login gagal');</script>";
-                }
+            //mysqli_real_escape_string untuk menghindari sql injection
+            $user = mysqli_real_escape_string($conn, $_POST['username']); //deklarasi variabel user
+            $pass = mysqli_real_escape_string($conn, $_POST['password']); //deklarasi variabel pass
+
+            $cek = mysqli_query($conn, "SELECT * FROM tb_admin WHERE username = '$user' AND password = '" . MD5($pass) . "'");
+            if (mysqli_num_rows($cek) > 0) {
+                //membuat sesi
+                $d = mysqli_fetch_object($cek);
+                $_SESSION['status_login'] = true;
+                $_SESSION['a_global'] = $d;
+                $_SESSION['id'] = $d->admin_id;
+                echo "<script>window.location='dashboard.php';</script>"; //alihkan ke halaman dashboard.php
+            } else {
+                echo "<script>alert('Login gagal');</script>";
             }
+        }
         ?>
     </div>
 </body>

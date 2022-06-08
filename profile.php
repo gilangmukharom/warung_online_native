@@ -1,12 +1,12 @@
 <?php
-    session_start();
-    include('db.php');
-    if($_SESSION['status_login'] != true){
-        echo '<script>window.location="login.php"</script>'; //alihkan ke halaman dashboard.php
-    }
+session_start();
+include('db.php');
+if ($_SESSION['status_login'] != true) {
+    echo '<script>window.location="login.php"</script>'; //alihkan ke halaman dashboard.php
+}
 
-    $query = mysqli_query($conn, "SELECT * FROM tb_admin WHERE admin_id = '".$_SESSION['id']."'");
-    $d = mysqli_fetch_object($query); //data ditampung dalam variabel object ($d)
+$query = mysqli_query($conn, "SELECT * FROM tb_admin WHERE admin_id = '" . $_SESSION['id'] . "'");
+$d = mysqli_fetch_object($query); //data ditampung dalam variabel object ($d)
 ?>
 
 <!DOCTYPE html>
@@ -17,7 +17,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
-    <title>Dashboard | Bukawarung</title>
+    <title>Profile | Bukawarung</title>
 </head>
 
 <body>
@@ -54,32 +54,32 @@
                     <button type=" submit" name="submit" class="btn-login">Ubah Profile</button>
                 </form>
                 <?php
-                    if(isset($_POST['submit'])){ //mengirim menggunakan php
+                if (isset($_POST['submit'])) { //mengirim menggunakan php
 
-                        $nama   = ucwords($_POST['nama']);
-                        $user   = $_POST['user'];
-                        $hp     = $_POST['hp'];
-                        $email  = $_POST['email'];
-                        $alamat = ucwords($_POST['alamat']);
+                    $nama   = ucwords($_POST['nama']);
+                    $user   = $_POST['user'];
+                    $hp     = $_POST['hp'];
+                    $email  = $_POST['email'];
+                    $alamat = ucwords($_POST['alamat']);
 
-                        //query update
-                        $update = mysqli_query($conn, "UPDATE tb_admin SET 
+                    //query update
+                    $update = mysqli_query($conn, "UPDATE tb_admin SET 
                         admin_name = '$nama', 
                         username = '$user', 
                         admin_telp = '$hp', 
                         admin_email = '$email', 
                         admin_address = '$alamat' 
-                        WHERE admin_id = '".$_SESSION['id']."'");
+                        WHERE admin_id = '" . $_SESSION['id'] . "'");
 
-                        //cek apakah query update berhasil
-                        if($update){
-                            echo '<script>alert("Sukses update profile!")</script>';
-                            echo '<script>window.location="profile.php"</script>';
-                        }
-                        else{
-                            echo '<script>alert("Gagal mengubah data")</script>'; mysqli_error($conn);
-                        }
+                    //cek apakah query update berhasil
+                    if ($update) {
+                        echo '<script>alert("Sukses update profile!")</script>';
+                        echo '<script>window.location="profile.php"</script>';
+                    } else {
+                        echo '<script>alert("Gagal mengubah data")</script>';
+                        mysqli_error($conn);
                     }
+                }
                 ?>
             </div>
             <h2>Ubah Password</h2>
@@ -90,29 +90,27 @@
                     <button type=" submit" name="ubah_password" class="btn-login">Ubah Profile</button>
                 </form>
                 <?php
-                    if(isset($_POST['ubah_password'])){ //mengirim menggunakan php
+                if (isset($_POST['ubah_password'])) { //mengirim menggunakan php
 
-                        $pass1   = ($_POST['pass1']);
-                        $pass2   = ($_POST['pass2']);
+                    $pass1   = ($_POST['pass1']);
+                    $pass2   = ($_POST['pass2']);
 
-                        if($pass2 != $pass1){
-                            echo '<script>alert("Password tidak sama!")</script>';
-                        }
-                        else{
+                    if ($pass2 != $pass1) {
+                        echo '<script>alert("Password tidak sama!")</script>';
+                    } else {
                         //query update password
-                            $u_pass = mysqli_query($conn, "UPDATE tb_admin SET
-                                    password = '".MD5($pass1)."'
-                                    WHERE admin_id = '".$_SESSION['id']."'");
-                            if($u_pass){
-                                echo '<script>alert("Sukses ubah password!")</script>';
-                                echo '<script>window.location="profile.php"</script>';
-                            }
-                            else{
-                                echo '<script>alert("Gagal mengubah password!")</script>'; mysqli_error($conn);
-                            }
-                        
+                        $u_pass = mysqli_query($conn, "UPDATE tb_admin SET
+                                    password = '" . MD5($pass1) . "'
+                                    WHERE admin_id = '" . $_SESSION['id'] . "'");
+                        if ($u_pass) {
+                            echo '<script>alert("Sukses ubah password!")</script>';
+                            echo '<script>window.location="profile.php"</script>';
+                        } else {
+                            echo '<script>alert("Gagal mengubah password!")</script>';
+                            mysqli_error($conn);
                         }
                     }
+                }
                 ?>
             </div>
         </div>
