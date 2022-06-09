@@ -6,7 +6,9 @@ if ($_SESSION['status_login'] != true) {
 }
 
 //menampilkan data kategori
-$kategori = mysqli_query($conn, "SELECT * FROM tb_category ORDER BY category_id ='" . $_GET['id'] . "'");
+$kategori = mysqli_query($conn,
+    "SELECT * FROM tb_category WHERE category_id ='" . $_GET['id'] . "'"
+);
 
 if (mysqli_num_rows($kategori) == 0) {
     echo '<script>window.location="data_kategori.php"</script>';
@@ -63,9 +65,11 @@ $k = mysqli_fetch_object($kategori);
 
                     //mengecek apakah query update berhasil
                     if ($update) {
-                        echo '<script>alert("Edit Data Berhasil.");</script> <script>window.location="data_kategori.php"</script>';
+                        echo '<script>alert("Edit Data Berhasil.")</script>';
+                        echo '<script>window.location="data_kategori.php"</script>';
                     } else {
-                        echo '<script>alert("Gagal Diedit.");</script> <script>window.location="edit_kategori.php"</script>';
+                        echo '<script>alert("Gagal Diedit.")</script>';
+                        echo '<script>window.location="edit_kategori.php"</script>';
                     }
                 }
                 ?>

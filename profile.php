@@ -87,7 +87,7 @@ $d = mysqli_fetch_object($query); //data ditampung dalam variabel object ($d)
                 <form action="" method="POST">
                     <input type="password" class="control" name="pass1" placeholder="password" required>
                     <input type="password" class="control" name="pass2" placeholder="konfirmasi password" required>
-                    <button type=" submit" name="ubah_password" class="btn-login">Ubah Profile</button>
+                    <button type=" submit" name="ubah_password" class="btn-login">Ubah Password</button>
                 </form>
                 <?php
                 if (isset($_POST['ubah_password'])) { //mengirim menggunakan php

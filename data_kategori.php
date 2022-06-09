@@ -55,18 +55,20 @@ if ($_SESSION['status_login'] != true) {
                         $no = 1;
                         $kategori = mysqli_query($conn, "SELECT * FROM tb_category ORDER BY category_id DESC");
 
+                        //melakukan looping pada variabel kategori dari database
                         while ($row = mysqli_fetch_array($kategori)) {
 
 
                         ?>
                         <tr>
-                            <!--melakukan looping pada variabel $row-->
+                            <!-- menampilkan data kategori -->
                             <td><?php echo $no++ ?></td>
                             <td><?php echo $row['category_name'] ?> </td>
                             <td>
                                 <!--mengambil id dari data yang di pilih-->
                                 <a href="edit_kategori.php?id=<?php echo $row['category_id'] ?>">Edit</a> ||
-                                <a href="proses_hapus.php?idk=<?php echo $row['category_id'] ?>">Hapus</a>
+                                <a href="proses_hapus.php?idk=<?php echo $row['category_id'] ?>"
+                                    onclick="return confirm('Yakin ingin menghapus?')">Hapus</a>
                             </td>
                         </tr>
                         <?php
