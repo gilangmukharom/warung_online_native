@@ -68,7 +68,8 @@ $p      = mysqli_fetch_object($produk);
 
                     <!--Menampilkan gambar yang ada dalam database-->
                     <img src="produk/<?php echo $p->product_images ?>" width="100px"> </img>
-                    <input type="file" name="gambar" class="control" required>
+                    <input type="hidden" name="foto" value="<?php echo $p->product_images ?>">
+                    <input type="file" name="gambar" class="control">
 
                     <textarea name="deskripsi" class="control" placeholder="Deskripsi" cols="30"
                         rows="10"><?php echo $p->product_description ?></textarea>
@@ -85,6 +86,55 @@ $p      = mysqli_fetch_object($produk);
                 <!--proses tambah data produk-->
                 <?php
                 if (isset($_POST['submit'])) {
+                    //menampung data inputan dari form
+                    $kategori   = $_POST['produk'];
+                    $nama       = $_POST['nama'];
+                    $harga      = $_POST['harga'];
+                    $deskripsi  = $_POST['deskripsi'];
+                    $status     = $_POST['status'];
+                    $foto       = $_POST['foto'];
+
+                    //tampung juga data gambar yang baru
+                    $filename = $_FILES['gambar']['name'];
+                    $tmp_name = $_FILES['gambar']['tmp_name'];
+
+                    $newname = 'produk_' . time() . '.' . $type2;
+
+                    $tipe_diizinkan = array('jpg', 'jpeg', 'png', 'gif');
+
+                    //jika gambar diubah
+                    if ($filename != '') {
+                        if (!in_array($type2, $tipe_diizinkan)) {
+                            echo '<script>alert("Format file tidak diizinkan")</script>';
+                        } else {
+
+                            //hapus gambar yang lama
+                            unlink('produk/' . $foto);
+                            //upload gambar baru
+                            move_uploaded_file($tmp_name, 'produk/' . $newname);
+                            $namagambar = $newname;
+                        }
+                    } else {
+                        $namagambar = $foto;
+                    }
+
+                    //beri validasi jika gambar tidak diubah
+                    $update = "UPDATE tb_product SET 
+                    category_id = '$kategori', 
+                    product_name = '$nama', 
+                    product_price = '$harga', 
+                    product_description = '$deskripsi', 
+                    product_images = '$namagambar', 
+                    product_status = '$status' 
+                    WHERE product_id = '$p->product_id'";
+
+                    $sql = mysqli_query($conn, $update);
+                    if ($sql) {
+                        echo '<script>alert("Data berhasil diubah")</script>';
+                        echo '<script>window.location="data_produk.php"</script>';
+                    } else {
+                        echo '<script>alert("Data gagal diubah")</script>';
+                    }
                 }
                 ?>
 
