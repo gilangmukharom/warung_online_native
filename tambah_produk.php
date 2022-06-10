@@ -15,6 +15,7 @@ if ($_SESSION['status_login'] != true) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.ckeditor.com/4.19.0/standard/ckeditor.js"></script>
     <title>Tambah Data Produk | Bukawarung</title>
 </head>
 
@@ -56,6 +57,7 @@ if ($_SESSION['status_login'] != true) {
                     <input type="text" name="harga" class="control" placeholder="Harga" required>
                     <input type="file" name="gambar" class="control" required>
                     <textarea name="deskripsi" class="control" placeholder="Deskripsi" cols="30" rows="10"></textarea>
+                    <br>
                     <select name="status" class="control">
                         <option value="">--Pilih--</option>
                         <option value="1">--Aktif--</option>
@@ -123,6 +125,11 @@ if ($_SESSION['status_login'] != true) {
             <small>Copyright &copy; 2020 Bukawarung</small>
         </div>
     </footer>
+
+    <!-- javascript untuk implementasi ckeditor-->
+    <script>
+    CKEDITOR.replace('deskripsi');
+    </script>
 </body>
 
 </html>
