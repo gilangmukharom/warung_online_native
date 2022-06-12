@@ -75,7 +75,8 @@ if ($_SESSION['status_login'] != true) {
                             <td><?php echo $row['product_name'] ?> </td>
                             <td>Rp. <?php echo number_format($row['product_price']) ?> </td>
                             <td><?php echo $row['product_description'] ?> </td>
-                            <td><img src="produk/<?php echo $row['product_images'] ?>" width="80px"></td>
+                            <td><a href="produk/<?php echo $row['product_images'] ?>" target="_blank"><img
+                                        src="produk/<?php echo $row['product_images'] ?>" width="80px"></a></td>
                             <td><?php echo ($row['product_status']) == 0 ? 'Tidak Aktif' : 'Aktif'; ?> </td>
                             <td>
                                 <!--mengambil id dari data yang di pilih-->
